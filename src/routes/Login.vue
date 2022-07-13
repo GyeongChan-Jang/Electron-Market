@@ -20,7 +20,12 @@
           type="password"
         />
       </div>
-      <input :disabled="!validated" type="submit" value="로그인" />
+      <input
+        class="btn btn-primary"
+        :disabled="!validated"
+        type="submit"
+        value="로그인"
+      />
     </form>
     <button class="btn btn-primary" @click="$router.push('/signup')">
       회원가입

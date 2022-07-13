@@ -6,8 +6,8 @@ const END_POINT =
 
 const headers = {
   "content-type": "application/json",
-  apikey: "FcKdtJs202204",
-  username: "KDT2_TEAM5",
+  apikey: VITE_API_KEY,
+  username: VITE_USERNAME,
 };
 
 export default {
@@ -72,6 +72,10 @@ export default {
       });
     },
     async signup(context, payload) {
+      // const profileImg = JSON.parse(
+      //   window.localStorage.getItem("user")
+      // ).profileImg;
+      // console.log("pi: ", profileImg);
       const { email, password, displayName, profileImgBase64 } = payload;
       const response = await axios({
         url: `${END_POINT}/signup`,
@@ -91,7 +95,7 @@ export default {
       });
 
       alert(response);
-
+      console.log("response: ", response);
       context.commit("setUser", {
         user: response.data.user,
         token: response.data.accessToken,
@@ -117,8 +121,10 @@ export default {
     },
     async changeProfile(context, payload) {
       const accessToken = window.localStorage.getItem("token");
+
       const { displayName, oldPassword, newPassword, profileImgBase64 } =
         payload;
+
       const response = await axios({
         url: `${END_POINT}/user`,
         method: "POST",
@@ -136,15 +142,16 @@ export default {
         console.log("Error: ", error.message);
         alert(error.response.data);
       });
-
+      console.log("response@@: ", response);
       window.localStorage.setItem("user", JSON.stringify(response.data.user));
       alert(response);
       context.commit("setUser", {
         img: response.data.user.profileImg,
       });
     },
-    findLocalStorageUser(context) {
+    findLocalStorageUser(context, payload) {
       const accessToken = window.localStorage.getItem("token");
+      console.log("findpayload: ", payload);
       if (accessToken == null) {
         context.commit("setUser", {
           logined: false,
@@ -152,6 +159,7 @@ export default {
       } else {
         context.commit("setUser", {
           logined: true,
+          // img: response.data.user.profileImg,
         });
       }
     },

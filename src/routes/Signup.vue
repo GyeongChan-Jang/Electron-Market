@@ -41,7 +41,7 @@
         />
       </div>
       <p v-if="!formIsValid">입력 제대로 하셈.</p>
-      <input type="submit" value="회원가입" />
+      <input class="btn btn-primary" type="submit" value="회원가입" />
     </form>
   </div>
 </template>
