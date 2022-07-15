@@ -33,18 +33,21 @@ export default {
   },
   actions: {
     async login({ commit }, payload) {
-      const { data } = await axios({
-        url: `${END_POINT}/login`,
-        method: 'POST',
-        headers: {
-          ...headers,
-        },
-        data: payload,
-      }).catch((error) => {
-        console.log(error)
-      })
-      window.localStorage.setItem('token', data.accessToken)
-      commit('setUser', { user: data.user })
+      try {
+        const { data } = await axios({
+          url: `${END_POINT}/login`,
+          method: 'POST',
+          headers: {
+            ...headers,
+          },
+          data: payload,
+        })
+        window.localStorage.setItem('token', data.accessToken)
+        commit('setUser', { user: data.user })  
+      } catch(err) {
+        console.log(err)  
+        window.localStorage.clear()
+      } 
     },
     async signup({ commit }, payload) {
       const { data } = await axios({
@@ -109,7 +112,7 @@ export default {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      commit('setUser', { user: data })
+      commit('setData', data.user)
     },
     deleteAdminInfo({ commit }) {
       commit('setUser', { findAdmin: false })
