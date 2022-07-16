@@ -16,7 +16,6 @@ export default {
     return {
       user: {},
       token: null,
-      logined: null,
       findAdmin: false,
     }
   },
@@ -26,9 +25,6 @@ export default {
         state[key] = payload[key]
       }
       console.log(state)
-    },
-    setData(state, payload) {
-      state.user = {...payload}
     }
   },
   actions: {
@@ -43,11 +39,12 @@ export default {
           data: payload,
         })
         window.localStorage.setItem('token', data.accessToken)
-        commit('setUser', { user: data.user })  
-      } catch(err) {
-        console.log(err)  
-        window.localStorage.clear()
-      } 
+        commit('setUser', { user: data.user })
+  
+      }catch(error){
+        console.log(error)
+        window.localStorage.removeItem('token')
+      }
     },
     async signup({ commit }, payload) {
       const { data } = await axios({
@@ -63,7 +60,7 @@ export default {
       commit('setUser', { user: data.user })
     },
 
-    async logOut() {
+    async logOut({commit}) {
       const accessToken = window.localStorage.getItem('token')
       await axios({
         url: `${END_POINT}/logout`,
@@ -75,32 +72,22 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
-      window.localStorage.clear()
+      window.localStorage.removeItem('token')
+      commit('setUser', {user: {}})
     },
     async changeProfile({ commit }, payload) {
+      console.log('payload', payload)
       const accessToken = window.localStorage.getItem('token')
-      try {
-        const { data } = await axios({
-          url: `${END_POINT}/user`,
-          method: 'PUT',
-          headers: {
-            ...headers,
-            Authorization: `Bearer ${accessToken}`,
-          },
-          data: payload,
-        })
-        commit('setData', data.user)
-      } catch(err) {
-        console.log(err)
-      } 
-    },
-    findLocalStorageUser({ commit }) {
-      const accessToken = window.localStorage.getItem('token')
-      if (accessToken == null) {
-        commit('setUser', { logined: false })
-      } else {
-        commit('setUser', { logined: true })
-      }
+      const { data } = await axios({
+        url: `${END_POINT}/user`,
+        method: 'PUT',
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${accessToken}`,
+        },
+        data: payload,
+      })
+      commit('setUser', { user: data })
     },
     async authenticationCheck({ commit }) {
       const accessToken = window.localStorage.getItem('token')
@@ -112,7 +99,7 @@ export default {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      commit('setData', data.user)
+      commit('setUser', { user: data })
     },
     deleteAdminInfo({ commit }) {
       commit('setUser', { findAdmin: false })
