@@ -1,8 +1,12 @@
 <template>
   <div class="breadcrumbs container">
     <ul>
-      <li>홈 > </li>
-      <li> {{ selectedProduct.title }} > </li>
+      <li @click="$router.push('/')">
+        홈 >
+      </li>
+      <li @click="$router.push(`/product/${selectedProduct.id}`)">
+        {{ selectedProduct.title }} >
+      </li>
       <li> 주문서 작성</li>
     </ul>
   </div>
@@ -285,6 +289,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   margin-top: 1rem;
+  padding-left: 0;
+  padding-right: 0;
   .title {
     text-align: center;
     margin: 1rem;
@@ -333,9 +339,11 @@ export default {
   background-color: var(--color-info-box);
 .orderUserInfo {
     padding: 30px 20px;
-    background: var(--color-userInfo-bg);
+   background-color: var(--color-info-payment-box);
     grid-area: info;
     color: var(--color-text-base);
+    border-radius: 8px;
+
     &__guide {
       margin-top: 15px;
       padding-top: 15px;
@@ -367,14 +375,17 @@ export default {
         }
       }
     }
+    button {
+      color: #9e9e9e;
+    }
   }
   &__box {
-    border: 1px solid var(--color-text-base);
+    border: 1px solid var( --color-gray-200);
     padding: 1.5rem;
     min-width: 300px;
     grid-area: payment;
-    border-bottom: 1px solid var( --color-gray-400);
-    color: var(--color-text-base);
+    border-radius: 8px;
+
     .expected-payment {
       display: flex;
       flex-flow: column;
@@ -443,6 +454,7 @@ export default {
         line-height: 20px;
         color: var(--color-gray-600);
         cursor: pointer;
+        white-space: nowrap;
       }
     }
     em {
@@ -493,6 +505,8 @@ export default {
   flex-shrink: 0;
   background-color: inherit;
   color: var(--color-gray-800);
+  border-color: var(--color-gray-200);
+  border-radius: 8px;
 }
 .account-list {
   display: flex;
@@ -506,19 +520,12 @@ export default {
   margin-top: 1rem;
 }
 
-select {
-  margin-top: 1rem;
+button {
+  border: 0;
 }
 
-.breadcrumbs {
-  padding-top: 2rem;
-  margin-bottom: 1rem;
-  ul {
-    display: flex;
-    li:not(:first-child) {
-      padding-left: .5rem;
-    }
-  }
+select {
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 1024px) {
@@ -527,6 +534,7 @@ select {
                 "account account"
                 "info payment";            
   }
+
 }
 
 @media screen and (max-width: 650px) {
@@ -535,12 +543,84 @@ select {
     img {
       display: none;
     }
+    .info.head {
+      padding: 8px 13px;
+      font-size: .8rem;
+    }
+    .info.box {
+      height: 130px;
+      font-size: .8rem;
+    }
   }
   .purchaseInfo {
     grid-template-areas: 
                 "account"
                 "info"
                 "payment";
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .checkbox-wrap .box__inner {
+    max-width: 375px;
+  }
+  .form-control {
+    max-width: 375px;
+    label {
+      font-size: .8rem;
+    }
+  }
+  .checkbox-wrap {
+    .allagree {
+      em, .text {
+        font-size: .8rem;
+      }
+    }
+    .box__inner {
+      padding: 10px 20px;
+    }
+    .box__custom-form input[type=checkbox] + label {
+      font-size: .8rem;
+    }
+    .button__detail {
+      font-size: .6rem;
+      border-radius: .2rem;
+    }
+  }
+
+  .title {
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+  .purchaseInfo {
+    .orderUserInfo {
+      padding: 10px 20px;
+      dt {
+        font-size: .9rem;
+        margin-bottom: 10px;
+        padding-bottom: 10px
+      }
+    }
+    button {
+      font-size: .8rem;
+      border-radius: .2rem;      
+    }
+    &__box {
+      padding: 1rem;
+      .expected-payment div {
+        font-size: .8rem;
+        padding: .3rem;
+      }
+      .expected-payment-all {
+        padding-top: .8rem;
+        font-size: .8rem;
+      }
+    }
+    &__title {
+      font-size: 1rem;
+      padding-bottom: 10px
+    }
   }
 }
 </style>

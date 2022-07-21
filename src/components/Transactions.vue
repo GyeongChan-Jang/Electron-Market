@@ -8,7 +8,7 @@
         <table class="table">
           <tbody>
             <tr
-              v-for="(detail, index) in transactionDetail"
+              v-for="(detail, index) in details"
               :key="detail.id">
               <td>{{ index + 1 }}</td>
               <td><b>{{ detail.user.displayName }}</b></td>
@@ -25,7 +25,9 @@
                   v-else-if="detail.done"
                   class="badge rounded-pill alert-success">거래완료</span>
               </td>
-              <td>{{ new Date(detail.timePaid).toLocaleString() }}</td>
+              <td class="date">
+                {{ new Date(detail.timePaid).toLocaleString() }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -35,6 +37,10 @@
 </template>
 <script>
 export default {
+  props: {
+    // eslint-disable-next-line vue/require-default-prop
+    details: Array
+  },
   data() {
     return {
       columns: [
@@ -47,27 +53,34 @@ export default {
       ]
     }
   },
-  computed: {
-    transactionDetail() {
-      return this.$store.state.admin.transactionDetail
-    }
-  },  
-  created() {
-    this.$store.dispatch('admin/readTransactionDetail')
-  },
 }
 </script>
 <style lang="scss" scoped>
+.card-body {
+  color: var(--color-text-base);
+}
 tr {
-  font-size: 10px;
+    font-size: 1rem;
+    color: var(--color-text-base);
   td {
+    &:first-child {
+      width: 70px;
+      text-align: center;
+    }
     &:nth-child(5) {
       width: 62px;
     }
+    &:nth-child(6) {
+      color: var(--color-gray-700);
+    }
     vertical-align: inherit;
+    line-height: 2.5rem;
   }
   .badge {
-    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    font-weight: 900;
+    margin-right: 2rem;
   }
 }
 </style>

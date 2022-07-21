@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <h2>
+    <h2 @click="$router.push(`/category/${category}`)">
       {{ category }}
     </h2>
     <div
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import ProductItem from './ProductItem.vue'
 
 export default {
@@ -37,13 +37,6 @@ export default {
   computed: {
     ...mapState('product', ['products'])
   },
-  mounted() {
-    this.readAllProducts()
-  },
-
-  methods: {
-    ...mapActions('product', ['readAllProducts'])
-  }
 }
 </script>
 
@@ -51,22 +44,23 @@ export default {
 section {
   overflow: hidden;
   h2 {
-    font-size: 22px;
-    line-height: 25px;
+    font-size: 1.5rem;
     text-align: center;
     font-weight: 700;
     color: var(--color-text-title);
+    margin-bottom: 2rem;
+    cursor: pointer;
   }
 
   .main {
-    height: 380px;
+    height: 382px;
   }
   .product {
     &__list {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      margin-top: 30px;
+      margin-top: 1.2rem;
       grid-gap: 20px;
       overflow: hidden;
       .card {
@@ -80,6 +74,25 @@ section {
         }
       }
     }
+  }
+}
+@media screen and (max-width: 380px) {
+  section {
+    h2 {
+      font-size: 1.1rem;
+      margin-bottom: 1.1rem;
+      &:hover {
+        color: $primary;
+      }
+    }
+    .product {
+      &__list {
+        margin-top: 1rem;
+      }
+    }
+  &.main {
+    height: 368px;
+  }
   }
 }
 </style>

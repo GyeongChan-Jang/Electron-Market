@@ -1,7 +1,4 @@
 <template>
-  <RouterLink to="/">
-    HOME
-  </RouterLink>
   <div class="login-box">
     <form @submit.prevent="submitForm">
       <div class="user-box">
@@ -17,7 +14,8 @@
         <input
           id="name"
           v-model.trim="displayName"
-          placeholder="Id: 사용자 이름, 20자 이하 (필수!)"
+          placeholder="Id: 사용자 이름, 8자 이하 (필수!)"
+          maxlength="5"
           type="name">
       </div>
       <div class="user-box">
@@ -38,12 +36,15 @@
           accept=".png, .jpg"
           @change="selectfile">
       </div>
-      <p v-if="!formIsValid">
-        입력 제대로 하셈.
+      <p
+        v-if="!formIsValid">
+        올바르게 입력해주세요!
       </p>
-      <input
+      <button
         type="submit"
-        value="회원가입">
+        class="btn btn-light">
+        회원가입
+      </button>
     </form>
   </div>
 </template>
@@ -62,8 +63,6 @@ export default {
   },
   methods: {
     selectfile(event) {
-      // console.log(event)
-      // const files= event.target.files
       const { files } = event.target
       for (const file of files) {
         const reader = new FileReader()
@@ -99,14 +98,7 @@ export default {
 }
 </script>
 
-<style scoped>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: linear-gradient(#141e30, #243b55);
-}
-
+<style lang="scss" scoped>
 .login-box {
   position: relative;
   top: 250px;
@@ -115,52 +107,47 @@ body {
   width: 500px;
   padding: 50px;
   transform: translate(-50%, -50%);
-  background: #f2555a;
+  background: var(--color-sub-primary);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  .user-box {
+    position: relative;
+    input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 30px;
+      border: none;
+      border-bottom: 1px solid #fff;
+      outline: none;
+      background: transparent;
+      &::placeholder {
+        color: var(--color-gray-100)
+      }
+      &:focus {
+        border-color: var(--color-pirmary);
+        outline: none;
+        border-width: 2px;
+      }
+    }
+    label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      pointer-events: none;
+      transition: 0.5s;
+    }
+  }
 }
 
-.login-box h2 {
-  margin: 0 0 30px;
-  padding: 0;
-  color: #fff;
-  text-align: center;
+@media screen and (max-width: 380px) {
+.login-box {
+  width: 100vw;
 }
-
-.login-box .user-box {
-  position: relative;
-}
-
-input::placeholder {
-  color: #fff;
-}
-
-.login-box .user-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-.login-box .user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: 0.5s;
-}
-
-input:focus {
-  border-color: #3d008d;
-  background-color: #faf6ff;
-  outline: none;
 }
 </style>

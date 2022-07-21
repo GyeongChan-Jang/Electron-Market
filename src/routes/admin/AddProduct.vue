@@ -14,7 +14,7 @@
     </div>
     <div class="card mb-4">
       <div class="card-body">
-        <form @submit.prevent="AddProduct()">
+        <form>
           <div class="mb-4">
             <label
               for="product_name"
@@ -53,7 +53,7 @@
                 <input
                   v-model="price"
                   placeholder="가격을 입력하세요."
-                  type="text"
+                  type="number"
                   class="form-control">
               </div>
               <div>
@@ -71,9 +71,12 @@
             </div>
             <!-- row.// -->
           </div>
-          <button class="btn btn-outline-primary btn-sm">
-            제품 추가하기
-          </button>
+          <div
+            class="btn btn-outline-danger btn-sm"
+            type="submit"
+            @click="AddProduct">
+            제품 추가
+          </div>
         </form>
       </div>
     </div>
@@ -81,7 +84,7 @@
 </template>
 <script>
 const { VITE_API_KEY, VITE_USERNAME } = import.meta.env
-import noImage from '../../assets/noImage'
+import noImage from '~/routes/admin/noImage.js'
 import axios from 'axios'
 
 export default {
@@ -97,18 +100,18 @@ export default {
   methods: {
     async AddProduct() {
       try {
-        const res = await axios({
+        await axios({
           url: 'https://asia-northeast3-heropy-api.cloudfunctions.net/api/products',
           headers: {
             'content-type': 'application/json',
-            apikey: VITE_API_KEY,
-            username: VITE_USERNAME,
-            masterKey: true,
+            'apikey': VITE_API_KEY,
+            'username': VITE_USERNAME,
+            'masterKey': true,
           },
           method: 'POST',
           data: {
             title: this.title,
-            price: this.price,
+            price: Number(this.price),
             description: this.description,
             tags: this.tags ? this.tags.split(',') : [],
             thumbnailBase64: this.thumbnailBase64,
@@ -152,8 +155,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~/scss/main";
-
 body {
   .content-main {
     max-width: 720px;
@@ -167,7 +168,16 @@ body {
       justify-content: space-between;
       margin-bottom: 30px;
     }
+    .card {
+      background-color: var(--color-info-bg);
+      input, textarea {
+        background-color: whitesmoke;
+      }
+    }
     form {
+      .btn {
+        color: inherit;
+      }
       display: block;
       margin-top: 0em;
       .form-control[type="file"] {

@@ -7,14 +7,14 @@
       <div>
         <RouterLink
           to="/admin/product-list"
-          class="btn btn-outline-primary">
+          class="btn btn-outline-danger">
           취소하기
         </RouterLink>
       </div>
     </div>
     <div class="card mb-4">
       <div class="card-body">
-        <form @submit.prevent="EditProduct()">
+        <form>
           <div class="mb-4 title-soldout">
             <div class="input-title">
               <label
@@ -25,7 +25,7 @@
                 v-model="title"
                 type="text"
                 placeholder="제품명을 입력하세요!"
-                class="form-control" />
+                class="form-control">
             </div>
             <div class="input-radio">
               <div class="form-check">
@@ -35,7 +35,7 @@
                   value="In Sale"
                   class="form-check-input"
                   type="radio"
-                  name="isSoldOut" />
+                  name="isSoldOut">
                 <label
                   class="form-check-label"
                   for="false"> 판매가능 </label>
@@ -47,7 +47,7 @@
                   value="Sold Out"
                   class="form-check-input"
                   type="radio"
-                  name="isSoldOut" />
+                  name="isSoldOut">
                 <label
                   class="form-check-label"
                   for="true"> 상품매진 </label>
@@ -72,27 +72,27 @@
               v-model="description"
               placeholder="제품 설명을 입력하세요!"
               class="form-control"
-              rows="4"></textarea>
+              rows="4" />
           </div>
           <div class="mb-4">
             <label class="form-label">제품 썸네일</label>
             <input
               class="form-control"
               type="file"
-              @change="selectThumbnail" />
+              @change="selectThumbnail">
           </div>
           <div class="mb-4 image-price-tag">
             <img
               class="image-preview"
               :src="thumbnailBase64"
-              alt="" />
+              alt="">
             <div class="row gx-2 col-6">
               <div>
                 <label class="form-label">가격</label>
                 <input
                   v-model="price"
                   type="text"
-                  class="form-control" />
+                  class="form-control">
               </div>
               <div>
                 <div class="mt-4">
@@ -102,14 +102,16 @@
                   <input
                     v-model="tags"
                     type="text"
-                    class="form-control" />
+                    class="form-control">
                 </div>
               </div>
             </div>
           </div>
-          <button class="btn btn-outline-primary">
+          <div
+            class="btn btn-outline-danger"
+            @click="EditProduct">
             제품 수정하기
-          </button>
+          </div>
         </form>
       </div>
     </div>
@@ -295,4 +297,10 @@ export default {
     }
   }
 }
+
+.content-main .card {
+  color: var(--color-text-base);
+  background-color: var(--color-info-bg);
+}
+
 </style>

@@ -20,18 +20,32 @@
 <script>
 import Swiper from '~/components/layouts/Swiper.vue'
 import ProductList from '~/components/product/ProductList.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
     Swiper,
     ProductList,
   },
+  mounted() {
+    this.readAllProducts()
+  },
+  methods: {
+   ...mapActions('product', ['readAllProducts'])
+  }
+  
 }
 </script>
 
 <style lang="scss" scoped>
 .category__box {
-  margin-top: 80px;
+  margin-top: 5rem;
+}
+
+@media screen and (max-width: 380px) {
+  .category__box {
+    margin-top: 2rem;
+  }
 }
 
 </style>

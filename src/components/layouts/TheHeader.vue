@@ -21,7 +21,9 @@
             data-bs-dismiss="offcanvas"
             aria-label="Close" />
         </div>
-        <div class="offcanvas-body">
+        <div
+          class="offcanvas-body">
+          <h4>Category</h4>
           <ul
             ref="categoryBox"
             class="nav nav-pills flex-column">
@@ -42,9 +44,12 @@
         </div>
       </div>
       <h1>
-        <RouterLink to="/">
-          <Logo />
-          <span class="logo">Eletron Market</span>
+        <RouterLink
+          to="/"
+          class="logo">
+          <Logo
+            class="logo__img" />
+          <span class="logo__title">Eletron Market</span>
         </RouterLink>
       </h1>
     </div>
@@ -70,7 +75,8 @@
         v-if="findAdmin"
         class="btn btn-primary admin"
         @click="$router.push('/admin')">
-        admin
+        <span class="admin_btn">adimin</span>
+        <span class="admin_btn_m">Ad</span>
       </button>
       <ul
         class="darkmode"
@@ -111,7 +117,7 @@
       <button
         v-else
         class="btn btn-primary login"
-        @click="$router.push('/login')">
+        @click="$router.push({name: 'login'})">
         로그인
       </button>
     </div>
@@ -159,11 +165,11 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('auth/findAdmin')
     this.$store.dispatch('auth/authenticationCheck')
   },
 
   methods: {
+    ...mapActions('auth', ['authenticationCheck']),
     ...mapActions('product', ['searchProducts']),
     toggleTheme() {
       this.theme = this.theme == 'darkMode' ? 'lightMode' : 'darkMode'
@@ -178,7 +184,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~/scss/main.scss";
 .header {
   position: fixed;
   z-index: 10;
@@ -187,8 +192,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
-  min-height: 48px;
+  padding: 8px 12px;
+  min-height: 56px;
   color: var(--color-text-base);
   background-color: var(--color-header-bg);
   box-shadow: 0 10px 15px -3px var(--color-shawdow-100), 0 4px 6px -4px var(--color-shawdow-100);
@@ -210,13 +215,30 @@ export default {
       font-size: 20px;
       white-space: nowrap;
       text-decoration: none;
+      display: flex;
+      align-items: center;
     }
-    .logo {
+    .logo__title {
       margin-left: 0.5rem;
     }
   }
 }
 
+#offcanvas {
+  width: 250px;
+  background-color: var(--color-info-bg);
+  color: var(--color-text-base);
+  .offcanvas-body {
+    h4 {
+      padding: 8px 16px;
+      color: $primary;
+      font-weight: bold;
+    }
+  }
+  a {
+    color: inherit;
+  }
+}
 
 .category {
   &__list {
@@ -224,7 +246,7 @@ export default {
     flex-wrap: nowrap;
     margin-left: 8px;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 1rem;
     .nav-link {
       color: var(--color-text-base);
       &:hover {
@@ -247,7 +269,6 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 8px;
-  gap: 1.5rem;
 
   .material-symbols-outlined {
     font-size: 30px;
@@ -274,6 +295,8 @@ export default {
 .drop-down {
   position: relative;
   display: inline-block;
+  margin: 0 1rem;
+  padding-left: 1.5rem;
 
   button {
     width: 2.5rem;
@@ -281,7 +304,7 @@ export default {
     background-color: transparent;
   }
   .form-control {
-    margin: auto 16px;
+    margin-left: 8px;
     height: 36px;
   }
   .search-icon {
@@ -293,6 +316,7 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
+  z-index: 2;
   li {
     position: absolute;
     left: 0;
@@ -307,6 +331,13 @@ export default {
   right: 1rem;
   top: 1rem;
 }
+.admin_btn_m {
+  display: none;
+}
+
+button {
+  border: 0;
+}
 
 @media (max-width: 960px) {
   .side-menu {
@@ -319,7 +350,14 @@ export default {
 }
 
 @media (max-width: 650px) {
+  .header .header-side {
+    gap: 0;
+  }
+  .button__list {
+    gap: 0;
+  }
   .drop-down {
+    padding-left: 0;
     .form-control {
       display: none;
       position: fixed;
@@ -336,5 +374,23 @@ export default {
       margin-left: 1rem;
     }
   }
+  .logo .logo__img {
+    display: none;
+    
+  }
+  .btn {
+    width: fit-content;
+    padding: .5rem;
+    .admin_btn {
+        display: none;
+      &_m {
+        display: block;
+    }
+  }
+  }
+  .logo__title {
+    font-size: 1.1rem;
+  }
+
 }
 </style>

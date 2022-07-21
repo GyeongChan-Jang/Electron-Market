@@ -1,7 +1,9 @@
 <template>
   <div class="breadcrumbs container">
     <ul>
-      <li>홈 > </li>
+      <li @click="$router.push('/')">
+        홈 >
+      </li>
       <li> {{ selectedProduct.title }}</li>
     </ul>
   </div>
@@ -14,7 +16,7 @@
           :alt="`${selectedProduct.title} 이미지`">  
         <img
           v-else
-          src="../../assets/no-Img"
+          src="/assets/noImage.jpeg"
           alt="이미지 준비중">
         <div
           v-if="selectedProduct.isSoldOut"
@@ -99,7 +101,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/scss/main.scss';
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 .detail-products {
@@ -120,12 +121,9 @@ export default {
     figure {
       position: relative;
       flex-shrink: 0;
-      max-width: 600px;
-      min-width: 300px;
       border-radius: 10px;
       overflow: hidden;
       background-color: var(--color-background-bg);
-      padding: 10px;
       text-align: center;
       flex-grow: 1;
       img {
@@ -203,14 +201,38 @@ export default {
   }
 }
 
-.breadcrumbs {
-  padding-top: 2rem;
-  margin-bottom: 1rem;
-  ul {
-    display: flex;
-    li:not(:first-child) {
-      padding-left: .5rem;
+@media (max-width: 650px) {
+.product{
+  &__box {
+    gap: 1rem;
+  }
+  &__info {
+    font-size: .9rem;
+    h3 {
+      margin-bottom: .7rem;
+      font-size: 1.3rem;
     }
+
+    p {
+      margin-bottom: 6px;
+      font-size: .8rem;
+     &.price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: .8rem;
+     }
+      &.desc {
+        font-size: .8rem;
+        line-height: 1.4;
+        margin-bottom: .6rem;
+      }
+
+    }
+  .tags {
+    margin-bottom: .5rem;
+  }
+  }
+
   }
 }
 </style>

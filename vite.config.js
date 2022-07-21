@@ -10,7 +10,16 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "./src/scss/_variable.scss";'
+        additionalData: '@import "./src/scss/main.scss";'
+      }
+    }
+  },
+  build: { 
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]' //정적파일
       }
     }
   }

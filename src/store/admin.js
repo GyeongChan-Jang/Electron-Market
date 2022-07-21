@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: {
     productList: [],
-    transactionDetail: []
+    transactionDetail: [],
   },
   mutations: {
     setProductList(state, payload) {
@@ -13,16 +13,27 @@ export default {
     },
     setTransactionDetail(state, payload) {
       state.transactionDetail = payload
-    }
+    },
   },
   actions: {
     async readProducts({ commit }) {
-      const res = await request('', 'GET')
-      commit('setProductList', res)
+      try {
+        const res = await request('', 'GET')
+        commit('setProductList', res)
+      } catch(err) {
+        console.log(err)
+      }
     },
     async readTransactionDetail({ commit }) {
-      const res = await request('/transactions/all', 'GET')
-      commit('setTransactionDetail', res)
+      try{
+        commit('changeLoadingStatus', true, { root: true })
+        const res = await request('/transactions/all', 'GET')
+        commit('setTransactionDetail', res)
+      } catch(err) {
+        console.log(err)
+      } finally {
+        commit('changeLoadingStatus', false, { root: true })
+      }
     }
   }
 }

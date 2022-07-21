@@ -27,7 +27,7 @@
           <img
             width="40"
             height="40"
-            src="../../assets/fastCampus.png">
+            src="/assets/fastCampus.png">
         </a>
       </div>
 
@@ -50,7 +50,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 footer {
-  padding: 100px 0 70px;
+  padding: 6rem 0 2rem;
   text-align: center;
   opacity: 0.4;
   .logo {
@@ -64,6 +64,18 @@ footer {
     p {
       margin: 0;
       padding-right: 8px;
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  footer {
+    padding-top: 3rem;
+    .flex {
+      img, svg {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 }
