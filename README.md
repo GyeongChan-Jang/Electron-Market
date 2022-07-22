@@ -13,14 +13,9 @@
 - vue 프레임 워크를 사용한 웹 페이지 개발
 
 ## ****🤲 함께한 멤버****
-
-[장경찬](https://www.notion.so/84282eb5faf64e36b615a9532b4997ac)
-
-[노영서](https://www.notion.so/9655821a935746a5bb492b813a4f608e)
-
-[최효근](https://www.notion.so/dd1b512b55214cc5bc39cb7c68dfd192)
-
-[김신협](https://www.notion.so/9c5a9c8b3c52409ab8616a82f4eb38f3)
+|<img src="https://ifh.cc/g/WA6smO.jpg" width="100">|<img src="https://user-images.githubusercontent.com/96939562/180461086-da6f1274-799c-411c-bf62-cbcb133b6a5e.png"  width="100">|<img src="https://user-images.githubusercontent.com/96939562/180461871-9dc39701-a7a0-4c12-8852-5056738cbc90.png" height="100">|<img src="https://user-images.githubusercontent.com/96939562/180461628-dab196b8-693d-4fc9-86e9-c2cf58bb494c.png" height="100">|
+|:---:|:---:|:---:|:---:|
+|**[장경찬](https://www.notion.so/84282eb5faf64e36b615a9532b4997ac)** |**[노영서](https://www.notion.so/9655821a935746a5bb492b813a4f608e)**|**[최효근](https://www.notion.so/dd1b512b55214cc5bc39cb7c68dfd192)**|**[김신협](https://www.notion.so/9c5a9c8b3c52409ab8616a82f4eb38f3)**
 
 ## ✨ 팀 프로젝트 결과
 

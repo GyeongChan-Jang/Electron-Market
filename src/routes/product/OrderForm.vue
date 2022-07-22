@@ -1,16 +1,16 @@
 <template>
-  <div class="breadcrumbs container">
-    <ul>
-      <li @click="$router.push('/')">
-        홈 >
-      </li>
-      <li @click="$router.push(`/product/${selectedProduct.id}`)">
-        {{ selectedProduct.title }} >
-      </li>
-      <li> 주문서 작성</li>
-    </ul>
-  </div>
   <section class="container">
+    <div class="breadcrumbs container">
+      <ul>
+        <li @click="$router.push('/')">
+          홈 >
+        </li>
+        <li @click="$router.push(`/product/${selectedProduct.id}`)">
+          {{ selectedProduct.title }} >
+        </li>
+        <li> 주문서 작성</li>
+      </ul>
+    </div>
     <div class="title">
       <h2>주문서 작성</h2>
     </div>
@@ -561,11 +561,14 @@ select {
 }
 
 @media screen and (max-width: 380px) {
+  .container {
+    padding: 0 5px;
+  }
   .checkbox-wrap .box__inner {
-    max-width: 375px;
+    max-width: 365px;
   }
   .form-control {
-    max-width: 375px;
+    max-width: 365px;
     label {
       font-size: .8rem;
     }

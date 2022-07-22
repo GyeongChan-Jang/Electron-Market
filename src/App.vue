@@ -52,7 +52,7 @@ export default {
   margin-top: 1rem;
   ul {
     display: flex;
-    li:not(:first-child) {
+    li {
       padding-left: .5rem;
     }
   li {
