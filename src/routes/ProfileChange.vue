@@ -40,6 +40,7 @@
       </div>
       <!-- <p v-if="!formIsValid">입력 제대로 하셈.</p> -->
       <input
+        class="btn btn-light btn-sm"
         type="submit"
         value="회원정보 수정">
     </form>
@@ -89,7 +90,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .profile-box {
   position: relative;
   top: 350px;
@@ -98,7 +99,7 @@ export default {
   width: 500px;
   padding: 50px;
   transform: translate(-50%, -50%);
-  background: #f2555a;
+    background: var(--color-login-primary);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
@@ -136,7 +137,7 @@ input {
 .profile-box .user-box label {
   padding: 10px 0;
   font-size: 16px;
-  color: #fff;
+  color:#fff;
   pointer-events: none;
   transition: 0.5s;
 }
@@ -145,5 +146,13 @@ input:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+
+}
+
+.btn-light {
+  color: var(--color-red);
+  &:hover {
+      color: var(--color-pirmary);
+  }
 }
 </style>
